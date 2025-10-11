@@ -1,0 +1,55 @@
+
+export interface PersonalDetails {
+  fullName: string;
+  jobTitle: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  linkedIn: string;
+  portfolio: string;
+}
+
+export interface WorkExperience {
+  id: string;
+  jobTitle: string;
+  company: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
+
+export interface Education {
+  id: string;
+  institution: string;
+  degree: string;
+  fieldOfStudy: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface CVData {
+  personalDetails: PersonalDetails;
+  summary: string;
+  experience: WorkExperience[];
+  education: Education[];
+  skills: string[];
+}
+
+export interface CoverLetterData {
+  recipientName: string;
+  recipientCompany: string;
+  recipientAddress: string;
+  letterBody: string;
+  date: string;
+}
+
+export enum Template {
+  MODERN = 'Modern',
+  CLASSIC = 'Classic',
+}
+
+export enum DocumentType {
+  CV = 'CV',
+  COVER_LETTER = 'Cover Letter',
+}
