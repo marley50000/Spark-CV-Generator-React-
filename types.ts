@@ -7,6 +7,7 @@ export interface PersonalDetails {
   address: string;
   linkedIn: string;
   portfolio: string;
+  photo?: string;
 }
 
 export interface WorkExperience {
@@ -47,6 +48,7 @@ export interface CoverLetterData {
 export enum Template {
   MODERN = 'Modern',
   CLASSIC = 'Classic',
+  ELEGANT = 'Elegant',
 }
 
 export enum DocumentType {

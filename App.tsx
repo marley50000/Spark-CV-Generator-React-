@@ -1,6 +1,4 @@
 
-
-
 import React, { useState, useEffect } from 'react';
 import { CVData, CoverLetterData, Template, DocumentType, AnalysisResult, StylingOptions } from './types';
 import SidebarForm from './components/SidebarForm';
@@ -17,7 +15,8 @@ const initialCvData: CVData = {
     phoneNumber: '123-456-7890',
     address: 'San Francisco, CA',
     linkedIn: 'linkedin.com/in/janedoe',
-    portfolio: 'janedoe.dev'
+    portfolio: 'janedoe.dev',
+    photo: '',
   },
   summary: 'Innovative Senior Frontend Developer with 8+ years of experience building and maintaining responsive and user-friendly web applications. Proficient in React, TypeScript, and modern JavaScript frameworks. Passionate about performance, accessibility, and creating seamless user experiences.',
   experience: [
@@ -122,25 +121,32 @@ function App() {
     try {
       const savedDataJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (savedDataJSON) {
-        // FIX: The `as string` cast is redundant because the `if` statement already narrows the type.
-        // Relying on TypeScript's type narrowing is cleaner and safer.
-        const savedData = JSON.parse(savedDataJSON) as Partial<{
-          cvData: CVData;
-          coverLetterData: CoverLetterData;
-          jobDescription: string;
-          template: Template;
-          documentType: DocumentType;
-          theme: Theme;
-          stylingOptions: StylingOptions;
-        }>;
-        setCvData(savedData.cvData || initialCvData);
-        setCoverLetterData(savedData.coverLetterData || initialCoverLetterData);
-        setJobDescription(savedData.jobDescription || '');
-        setTemplate(savedData.template || Template.MODERN);
-        setDocumentType(savedData.documentType || DocumentType.CV);
-        setTheme(savedData.theme || 'indigo');
-        setStylingOptions(savedData.stylingOptions || initialStylingOptions);
-        setNotification({ message: 'Progress loaded successfully!', type: 'success' });
+        // FIX: The unsafe type assertion `as` has been replaced with proper type checking.
+        // This prevents potential runtime errors from malformed localStorage data
+        // and resolves TypeScript errors when `JSON.parse` is configured to return `unknown`.
+        const savedData: unknown = JSON.parse(savedDataJSON);
+        
+        if (savedData && typeof savedData === 'object') {
+            const data = savedData as Partial<{
+              cvData: CVData;
+              coverLetterData: CoverLetterData;
+              jobDescription: string;
+              template: Template;
+              documentType: DocumentType;
+              theme: Theme;
+              stylingOptions: StylingOptions;
+            }>;
+            setCvData(data.cvData || initialCvData);
+            setCoverLetterData(data.coverLetterData || initialCoverLetterData);
+            setJobDescription(data.jobDescription || '');
+            setTemplate(data.template || Template.MODERN);
+            setDocumentType(data.documentType || DocumentType.CV);
+            setTheme(data.theme || 'indigo');
+            setStylingOptions(data.stylingOptions || initialStylingOptions);
+            setNotification({ message: 'Progress loaded successfully!', type: 'success' });
+        } else {
+            setNotification({ message: 'Could not load saved data. Format is invalid.', type: 'error' });
+        }
       } else {
         setNotification({ message: 'No saved data found.', type: 'info' });
       }

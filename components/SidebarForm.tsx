@@ -1,3 +1,4 @@
+
 import React, { FC, useState } from 'react';
 import { CVData, CoverLetterData, Template, DocumentType, AnalysisResult, StylingOptions } from '../types';
 import { generateSummary, generateCoverLetter, analyzeDocument } from '../services/geminiService';
@@ -194,6 +195,33 @@ const SidebarForm: FC<SidebarFormProps> = ({
         }));
     };
 
+    const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (loadEvent) => {
+                setCvData(prev => ({
+                    ...prev,
+                    personalDetails: {
+                        ...prev.personalDetails,
+                        photo: loadEvent.target?.result as string,
+                    }
+                }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const removePhoto = () => {
+         setCvData(prev => ({
+            ...prev,
+            personalDetails: {
+                ...prev.personalDetails,
+                photo: '',
+            }
+        }));
+    };
+
     return (
         <aside className="w-full bg-slate-100 p-6 overflow-y-auto h-screen max-h-screen border-r border-slate-200">
             <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
@@ -283,6 +311,25 @@ const SidebarForm: FC<SidebarFormProps> = ({
                 {documentType === DocumentType.CV ? (
                     <>
                         <CollapsibleSection title="Personal Details" icon={<UserIcon />}>
+                            <div className="mb-6 flex flex-col items-center">
+                                <div className="w-24 h-24 rounded-full bg-slate-200 mb-2 flex items-center justify-center overflow-hidden">
+                                    {cvData.personalDetails.photo ? (
+                                        <img src={cvData.personalDetails.photo} alt="Profile" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <UserIcon />
+                                    )}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                     <label htmlFor="photo-upload" className="cursor-pointer text-sm font-medium text-[var(--primary)] py-1 px-3 rounded-md hover:bg-[var(--primary-light)] transition-colors border border-[var(--primary-border)]">
+                                        Upload Photo
+                                    </label>
+                                    <input id="photo-upload" type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
+                                    {cvData.personalDetails.photo && (
+                                        <button onClick={removePhoto} className="text-sm text-red-600 hover:text-red-800">Remove</button>
+                                    )}
+                                </div>
+                                <p className="text-xs text-slate-500 mt-2">Recommended: square, &lt; 2MB</p>
+                            </div>
                             <InputField label="Full Name" name="fullName" value={cvData.personalDetails.fullName} onChange={handlePersonalDetailsChange} icon={<UserIcon />} />
                             <InputField label="Job Title" name="jobTitle" value={cvData.personalDetails.jobTitle} onChange={handlePersonalDetailsChange} icon={<BriefcaseIcon />} />
                             <InputField label="Email" name="email" type="email" value={cvData.personalDetails.email} onChange={handlePersonalDetailsChange} icon={<MailIcon />} />

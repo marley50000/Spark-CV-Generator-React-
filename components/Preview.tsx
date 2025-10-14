@@ -1,9 +1,11 @@
 
+
 import React, { FC, useState } from 'react';
 import { CVData, CoverLetterData, Template, DocumentType, StylingOptions } from '../types';
 import CVTemplateModern from './CVTemplateModern';
 import CVTemplateClassic from './CVTemplateClassic';
 import CoverLetterTemplate from './CoverLetterTemplate';
+import { MailIcon, PhoneIcon, MapPinIcon, LinkIcon } from './icons';
 
 declare const html2canvas: any;
 declare const jspdf: any;
@@ -17,6 +19,103 @@ interface PreviewProps {
   stylingOptions: StylingOptions;
 }
 
+// --- START OF NEW ELEGANT TEMPLATE COMPONENT ---
+const ElegantContactItem: FC<{ icon: React.ReactNode, text: string, href?: string }> = ({ icon, text, href }) => (
+    <div className="flex items-start gap-3 mb-2 text-sm">
+        <span className="text-slate-500 w-4 h-4 mt-0.5">{icon}</span>
+        {href ? <a href={href} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-[var(--primary)] break-all">{text}</a> : <span className="text-gray-700 break-all">{text}</span>}
+    </div>
+);
+
+const ElegantSection: FC<{ title: string, children: React.ReactNode }> = ({ title, children }) => (
+  <div className="mb-6">
+    <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest pb-1 mb-3 border-b border-slate-300">
+        {title}
+    </h3>
+    {children}
+  </div>
+);
+
+const CVTemplateElegant: FC<{ data: CVData; options: StylingOptions; }> = ({ data, options }) => {
+  const { personalDetails, summary, experience, education, skills } = data;
+
+  const fontFamilies: Record<StylingOptions['fontFamily'], string> = { 'Inter': 'font-sans', 'Georgia': 'font-serif', 'Roboto Mono': 'font-mono' };
+  const fontSizes: Record<StylingOptions['fontSize'], string> = { 'Small': 'text-sm', 'Medium': 'text-base', 'Large': 'text-lg' };
+  const margins: Record<StylingOptions['margin'], string> = { 'Narrow': 'p-6', 'Normal': 'p-8', 'Wide': 'p-10' };
+
+  const containerClasses = `${margins[options.margin]} ${fontSizes[options.fontSize]} text-gray-800 bg-white flex ${fontFamilies[options.fontFamily]}`;
+
+  return (
+    <div className={containerClasses} style={{ lineHeight: options.lineHeight }}>
+      {/* Left Column */}
+      <div className="w-1/3 bg-slate-50 p-6 border-r-2 border-slate-200">
+        {personalDetails.photo && (
+            <div className="mb-6">
+                <img src={personalDetails.photo} alt="Profile" className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-md" />
+            </div>
+        )}
+        <h1 className="text-3xl font-bold text-slate-800 text-center">{personalDetails.fullName}</h1>
+        <h2 className="text-lg font-semibold text-[var(--primary)] text-center mb-6">{personalDetails.jobTitle}</h2>
+
+        <ElegantSection title="Contact">
+          <ElegantContactItem icon={<MailIcon />} text={personalDetails.email} href={`mailto:${personalDetails.email}`} />
+          <ElegantContactItem icon={<PhoneIcon />} text={personalDetails.phoneNumber} href={`tel:${personalDetails.phoneNumber}`} />
+          <ElegantContactItem icon={<MapPinIcon />} text={personalDetails.address} />
+          <ElegantContactItem icon={<LinkIcon />} text={personalDetails.linkedIn} href={`https://${personalDetails.linkedIn}`} />
+          <ElegantContactItem icon={<LinkIcon />} text={personalDetails.portfolio} href={`https://${personalDetails.portfolio}`} />
+        </ElegantSection>
+        
+        <ElegantSection title="Skills">
+          <ul className="flex flex-wrap gap-2">
+            {skills.map((skill, index) => (
+              <li key={index} className="text-xs bg-slate-200 text-slate-700 px-2 py-1 rounded">
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </ElegantSection>
+      </div>
+
+      {/* Right Column */}
+      <div className="w-2/3 pl-8 pt-6">
+        <ElegantSection title="Summary">
+          <p className="text-gray-700 italic">{summary}</p>
+        </ElegantSection>
+
+        <ElegantSection title="Experience">
+          {experience.map((exp) => (
+            <div key={exp.id} className="mb-4 relative pl-4">
+              <div className="absolute left-0 h-full w-0.5 bg-slate-200"></div>
+              <div className="absolute left-[-4.5px] top-1 w-2.5 h-2.5 bg-[var(--primary)] rounded-full border-2 border-white"></div>
+              <h3 className="font-bold text-gray-900">{exp.jobTitle}</h3>
+              <div className="flex justify-between items-baseline">
+                <p className="font-semibold text-slate-600">{exp.company}, {exp.location}</p>
+                <p className="text-sm text-gray-500">{exp.startDate} - {exp.endDate}</p>
+              </div>
+              <p className="text-gray-700 mt-1 text-sm">{exp.description}</p>
+            </div>
+          ))}
+        </ElegantSection>
+
+        <ElegantSection title="Education">
+          {education.map((edu) => (
+            <div key={edu.id} className="mb-2 relative pl-4">
+               <div className="absolute left-0 h-full w-0.5 bg-slate-200"></div>
+               <div className="absolute left-[-4.5px] top-1 w-2.5 h-2.5 bg-[var(--primary)] rounded-full border-2 border-white"></div>
+              <h3 className="font-bold text-gray-900">{edu.institution}</h3>
+              <div className="flex justify-between items-baseline">
+                 <p className="font-semibold text-slate-600">{edu.degree}, {edu.fieldOfStudy}</p>
+                <p className="text-sm text-gray-500">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            </div>
+          ))}
+        </ElegantSection>
+      </div>
+    </div>
+  );
+};
+// --- END OF NEW ELEGANT TEMPLATE COMPONENT ---
+
 const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, setTemplate, documentType, stylingOptions }) => {
     
     const [isDownloading, setIsDownloading] = useState(false);
@@ -25,6 +124,8 @@ const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, setTempl
         switch (template) {
             case Template.CLASSIC:
                 return <CVTemplateClassic data={cvData} options={stylingOptions} />;
+            case Template.ELEGANT:
+                return <CVTemplateElegant data={cvData} options={stylingOptions} />;
             case Template.MODERN:
             default:
                 return <CVTemplateModern data={cvData} options={stylingOptions} />;
@@ -114,6 +215,7 @@ const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, setTempl
                         <div className="flex items-center p-1 bg-slate-200 rounded-lg space-x-1">
                            <TemplateToggleButton value={Template.MODERN}>Modern</TemplateToggleButton>
                            <TemplateToggleButton value={Template.CLASSIC}>Classic</TemplateToggleButton>
+                           <TemplateToggleButton value={Template.ELEGANT}>Elegant</TemplateToggleButton>
                         </div>
                     )}
                 </div>
