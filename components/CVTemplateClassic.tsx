@@ -1,15 +1,23 @@
+
 import React, { FC } from 'react';
-import { CVData } from '../types';
+import { CVData, StylingOptions } from '../types';
 
 interface Props {
   data: CVData;
+  options: StylingOptions;
 }
 
-const CVTemplateClassic: FC<Props> = ({ data }) => {
+const CVTemplateClassic: FC<Props> = ({ data, options }) => {
   const { personalDetails, summary, experience, education, skills } = data;
+  
+  const fontFamilies: Record<StylingOptions['fontFamily'], string> = { 'Inter': 'font-sans', 'Georgia': 'font-serif', 'Roboto Mono': 'font-mono' };
+  const fontSizes: Record<StylingOptions['fontSize'], string> = { 'Small': 'text-sm', 'Medium': 'text-base', 'Large': 'text-lg' };
+  const margins: Record<StylingOptions['margin'], string> = { 'Narrow': 'p-8', 'Normal': 'p-10', 'Wide': 'p-12' };
+
+  const containerClasses = `${margins[options.margin]} ${fontSizes[options.fontSize]} text-gray-900 bg-white ${fontFamilies[options.fontFamily]}`;
 
   return (
-    <div className="p-10 text-base text-gray-900 bg-white font-serif">
+    <div className={containerClasses} style={{ lineHeight: options.lineHeight }}>
       <header className="text-center mb-8 border-b pb-4">
         <h1 className="text-4xl font-bold tracking-wider">{personalDetails.fullName}</h1>
         <h2 className="text-xl font-medium text-gray-600 mt-1">{personalDetails.jobTitle}</h2>
@@ -28,11 +36,11 @@ const CVTemplateClassic: FC<Props> = ({ data }) => {
       
       <main>
         <Section title="Professional Summary">
-          <p className="leading-relaxed">{summary}</p>
+          <p>{summary}</p>
         </Section>
         
         <Section title="Skills">
-          <p className="leading-relaxed">{skills.join(' | ')}</p>
+          <p>{skills.join(' | ')}</p>
         </Section>
         
         <Section title="Work Experience">
@@ -45,7 +53,7 @@ const CVTemplateClassic: FC<Props> = ({ data }) => {
                 </div>
                 <p className="text-sm text-gray-600 min-w-max ml-4">{exp.startDate} - {exp.endDate}</p>
               </div>
-              <p className="mt-1 leading-relaxed text-sm">{exp.description}</p>
+              <p className="mt-1 text-sm">{exp.description}</p>
             </div>
           ))}
         </Section>

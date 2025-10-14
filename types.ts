@@ -76,6 +76,6 @@ export interface AnalysisResult {
 export interface StylingOptions {
   fontFamily: 'Inter' | 'Georgia' | 'Roboto Mono';
   fontSize: 'Small' | 'Medium' | 'Large';
-  lineHeight: 'Normal' | 'Relaxed' | 'Loose';
+  lineHeight: number;
   margin: 'Narrow' | 'Normal' | 'Wide';
 }

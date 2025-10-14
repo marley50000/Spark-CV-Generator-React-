@@ -1,5 +1,6 @@
+
 import React, { FC, useState } from 'react';
-import { CVData, CoverLetterData, Template, DocumentType } from '../types';
+import { CVData, CoverLetterData, Template, DocumentType, StylingOptions } from '../types';
 import CVTemplateModern from './CVTemplateModern';
 import CVTemplateClassic from './CVTemplateClassic';
 import CoverLetterTemplate from './CoverLetterTemplate';
@@ -13,24 +14,25 @@ interface PreviewProps {
   template: Template;
   setTemplate: React.Dispatch<React.SetStateAction<Template>>;
   documentType: DocumentType;
+  stylingOptions: StylingOptions;
 }
 
-const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, setTemplate, documentType }) => {
+const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, setTemplate, documentType, stylingOptions }) => {
     
     const [isDownloading, setIsDownloading] = useState(false);
 
     const renderCV = () => {
         switch (template) {
             case Template.CLASSIC:
-                return <CVTemplateClassic data={cvData} />;
+                return <CVTemplateClassic data={cvData} options={stylingOptions} />;
             case Template.MODERN:
             default:
-                return <CVTemplateModern data={cvData} />;
+                return <CVTemplateModern data={cvData} options={stylingOptions} />;
         }
     };
 
     const renderCoverLetter = () => {
-        return <CoverLetterTemplate cvData={cvData} letterData={coverLetterData} />;
+        return <CoverLetterTemplate cvData={cvData} letterData={coverLetterData} options={stylingOptions} />;
     };
 
     const handleDownloadPdf = async () => {
@@ -135,8 +137,8 @@ const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, setTempl
             </div>
             <div id="document-preview" className="bg-white shadow-lg mx-auto" style={{ width: '210mm', minHeight: '297mm' }}>
                 {documentType === DocumentType.CV 
-                    ? <div key={template} className="cv-transition-container">{renderCV()}</div> 
-                    : <div key="cover-letter" className="cv-transition-container">{renderCoverLetter()}</div>
+                    ? <div key={`${template}-${JSON.stringify(stylingOptions)}`} className="cv-transition-container">{renderCV()}</div> 
+                    : <div key={`cover-letter-${JSON.stringify(stylingOptions)}`} className="cv-transition-container">{renderCoverLetter()}</div>
                 }
             </div>
             <style>

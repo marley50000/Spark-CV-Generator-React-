@@ -1,18 +1,26 @@
 
 import React, { FC } from 'react';
-import { CVData, CoverLetterData } from '../types';
+import { CVData, CoverLetterData, StylingOptions } from '../types';
 
 interface Props {
     cvData: CVData;
     letterData: CoverLetterData;
+    options: StylingOptions;
 }
 
-const CoverLetterTemplate: FC<Props> = ({ cvData, letterData }) => {
+const CoverLetterTemplate: FC<Props> = ({ cvData, letterData, options }) => {
   const { personalDetails } = cvData;
   const { recipientName, recipientCompany, recipientAddress, letterBody, date } = letterData;
 
+  const fontFamilies: Record<StylingOptions['fontFamily'], string> = { 'Inter': 'font-sans', 'Georgia': 'font-serif', 'Roboto Mono': 'font-mono' };
+  const fontSizes: Record<StylingOptions['fontSize'], string> = { 'Small': 'text-sm', 'Medium': 'text-base', 'Large': 'text-lg' };
+  const margins: Record<StylingOptions['margin'], string> = { 'Narrow': 'p-10', 'Normal': 'p-12', 'Wide': 'p-14' };
+
+  const containerClasses = `${margins[options.margin]} ${fontSizes[options.fontSize]} text-gray-900 bg-white ${fontFamilies[options.fontFamily]}`;
+
+
   return (
-    <div className="p-12 text-base text-gray-900 bg-white font-serif leading-relaxed">
+    <div className={containerClasses} style={{ lineHeight: options.lineHeight }}>
         <div className="grid grid-cols-2 gap-8 mb-12">
             <div>
                 <h2 className="text-2xl font-bold">{personalDetails.fullName}</h2>
