@@ -1,4 +1,3 @@
-
 import React, { FC } from 'react';
 import { CVData } from '../types';
 
@@ -17,13 +16,13 @@ const CVTemplateClassic: FC<Props> = ({ data }) => {
         <div className="flex justify-center gap-x-6 gap-y-2 mt-4 text-sm flex-wrap">
           <span>{personalDetails.address}</span>
           <span>&bull;</span>
-          <a href={`tel:${personalDetails.phoneNumber}`} className="hover:text-blue-700">{personalDetails.phoneNumber}</a>
+          <a href={`tel:${personalDetails.phoneNumber}`} className="text-[var(--primary)] hover:text-[var(--primary-hover)]">{personalDetails.phoneNumber}</a>
           <span>&bull;</span>
-          <a href={`mailto:${personalDetails.email}`} className="hover:text-blue-700">{personalDetails.email}</a>
+          <a href={`mailto:${personalDetails.email}`} className="text-[var(--primary)] hover:text-[var(--primary-hover)]">{personalDetails.email}</a>
           <span>&bull;</span>
-          <a href={`https://${personalDetails.linkedIn}`} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700">{personalDetails.linkedIn}</a>
+          <a href={`https://${personalDetails.linkedIn}`} target="_blank" rel="noopener noreferrer" className="text-[var(--primary)] hover:text-[var(--primary-hover)]">{personalDetails.linkedIn}</a>
           <span>&bull;</span>
-          <a href={`https://${personalDetails.portfolio}`} target="_blank" rel="noopener noreferrer" className="hover:text-blue-700">{personalDetails.portfolio}</a>
+          <a href={`https://${personalDetails.portfolio}`} target="_blank" rel="noopener noreferrer" className="text-[var(--primary)] hover:text-[var(--primary-hover)]">{personalDetails.portfolio}</a>
         </div>
       </header>
       

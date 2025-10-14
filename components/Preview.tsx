@@ -11,10 +11,11 @@ interface PreviewProps {
   cvData: CVData;
   coverLetterData: CoverLetterData;
   template: Template;
+  setTemplate: React.Dispatch<React.SetStateAction<Template>>;
   documentType: DocumentType;
 }
 
-const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, documentType }) => {
+const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, setTemplate, documentType }) => {
     
     const [isDownloading, setIsDownloading] = useState(false);
 
@@ -87,13 +88,37 @@ const Preview: FC<PreviewProps> = ({ cvData, coverLetterData, template, document
         }
     };
 
+    const TemplateToggleButton: FC<{value: Template, children: React.ReactNode}> = ({ value, children }) => {
+        const isActive = template === value;
+        return (
+            <button
+                onClick={() => setTemplate(value)}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-ring)] ${
+                    isActive
+                        ? 'bg-[var(--primary)] text-white shadow-sm'
+                        : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-300'
+                }`}
+            >
+                {children}
+            </button>
+        )
+    }
+
     return (
         <section className="w-full bg-slate-200 p-8 overflow-y-auto h-screen max-h-screen relative">
-            <div className="flex justify-end mb-4 print:hidden">
+            <div className="flex justify-between items-center mb-4 print:hidden">
+                <div>
+                    {documentType === DocumentType.CV && (
+                        <div className="flex items-center p-1 bg-slate-200 rounded-lg space-x-1">
+                           <TemplateToggleButton value={Template.MODERN}>Modern</TemplateToggleButton>
+                           <TemplateToggleButton value={Template.CLASSIC}>Classic</TemplateToggleButton>
+                        </div>
+                    )}
+                </div>
                 <button 
                     onClick={handleDownloadPdf}
                     disabled={isDownloading}
-                    className="bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-indigo-700 transition-colors disabled:bg-indigo-400 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="bg-[var(--primary)] text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-[var(--primary-hover)] transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                     {isDownloading ? (
                          <>

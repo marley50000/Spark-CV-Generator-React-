@@ -53,3 +53,29 @@ export enum DocumentType {
   CV = 'CV',
   COVER_LETTER = 'Cover Letter',
 }
+
+export interface ScoreBreakdownItem {
+  category: string;
+  score: number;
+}
+
+export interface KeywordAnalysis {
+  jobKeywords: string[];
+  cvKeywords: string[];
+  missingKeywords: string[];
+}
+
+export interface AnalysisResult {
+  overallScore: number;
+  scoreBreakdown: ScoreBreakdownItem[];
+  strengths: string[];
+  suggestions: string[];
+  keywordAnalysis: KeywordAnalysis;
+}
+
+export interface StylingOptions {
+  fontFamily: 'Inter' | 'Georgia' | 'Roboto Mono';
+  fontSize: 'Small' | 'Medium' | 'Large';
+  lineHeight: 'Normal' | 'Relaxed' | 'Loose';
+  margin: 'Narrow' | 'Normal' | 'Wide';
+}

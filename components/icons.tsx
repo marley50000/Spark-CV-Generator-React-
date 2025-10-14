@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 
 export const UserIcon = () => (
@@ -59,5 +60,42 @@ export const SparklesIcon = () => (
 export const ChevronDownIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+    </svg>
+);
+
+export const SaveIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+    <path d="M17 3H5a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2zM5 17a1 1 0 01-1-1V5a1 1 0 011-1h1V7a1 1 0 001 1h6a1 1 0 001-1V4h1a1 1 0 011 1v10a1 1 0 01-1 1H5z" />
+    <path d="M12 4H8a1 1 0 01-1-1V2a1 1 0 011-1h4a1 1 0 011 1v1a1 1 0 01-1 1z" />
+  </svg>
+);
+
+export const FolderOpenIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+    <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+  </svg>
+);
+
+export const ChartBarIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm3 1a1 1 0 00-1 1v10a1 1 0 102 0V5a1 1 0 00-1-1zm3 0a1 1 0 00-1 1v10a1 1 0 102 0V5a1 1 0 00-1-1zm3 0a1 1 0 00-1 1v10a1 1 0 102 0V5a1 1 0 00-1-1zm3 0a1 1 0 00-1 1v10a1 1 0 102 0V5a1 1 0 00-1-1z" clipRule="evenodd" />
+    </svg>
+);
+
+export const CheckCircleIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+    </svg>
+);
+
+export const XIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+  </svg>
+);
+
+export const TextSizeIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M17.5,6H15V4h-2.5C12.22,4,12,4.22,12,4.5v0C12,4.78,12.22,5,12.5,5H14v1h-2c-0.28,0-0.5,0.22-0.5,0.5v0C11.5,6.78,11.72,7,12,7h2v1h-1.5C12.22,8,12,8.22,12,8.5v0C12,8.78,12.22,9,12.5,9H15v2h2.5c0.28,0,0.5-0.22,0.5-0.5v0c0-0.28-0.22-0.5-0.5-0.5H16V8h1.5c0.28,0,0.5-0.22,0.5-0.5v0C18,7.22,17.78,7,17.5,7H16V6H17.5z M6,16h5V8H2v8h1V9h3v7H6z M8.5,4H4.88L6,6.24L7.12,4H8.5 M7.5,2H2.5L6,7L9.5,2H7.5z"/>
     </svg>
 );
