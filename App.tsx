@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { CVData, CoverLetterData, Template, DocumentType, AnalysisResult, StylingOptions } from './types';
 import SidebarForm from './components/SidebarForm';
@@ -126,7 +127,7 @@ function App() {
         // and resolves TypeScript errors when `JSON.parse` is configured to return `unknown`.
         const savedData: unknown = JSON.parse(savedDataJSON);
         
-        if (savedData && typeof savedData === 'object') {
+        if (savedData && typeof savedData === 'object' && !Array.isArray(savedData)) {
             const data = savedData as Partial<{
               cvData: CVData;
               coverLetterData: CoverLetterData;

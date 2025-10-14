@@ -1,4 +1,3 @@
-
 import React, { FC, useState } from 'react';
 import { CVData, CoverLetterData, Template, DocumentType, AnalysisResult, StylingOptions } from '../types';
 import { generateSummary, generateCoverLetter, analyzeDocument } from '../services/geminiService';
