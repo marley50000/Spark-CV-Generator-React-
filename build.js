@@ -1,3 +1,4 @@
+
 const esbuild = require('esbuild');
 const fs = require('fs/promises');
 const path = require('path');
@@ -18,8 +19,10 @@ async function build() {
       jsx: 'automatic',
       // The define option is crucial for replacing process.env.API_KEY
       // with the actual environment variable at build time.
+      // We provide an empty string as a fallback to prevent the build from crashing
+      // if the API_KEY is not set in the Vercel environment.
       define: {
-        'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
+        'process.env.API_KEY': JSON.stringify(process.env.API_KEY || '')
       },
     });
 
@@ -38,6 +41,13 @@ async function build() {
     await fs.writeFile(path.join(outdir, 'index.html'), html.trim());
 
     console.log('Build successful! Output is in the "dist" directory.');
+
+    // Add a warning if the API key was not found.
+    if (!process.env.API_KEY) {
+        console.warn('⚠️  Warning: The API_KEY environment variable was not set during the build.');
+        console.warn('   The application will deploy, but the AI features will not work.');
+        console.warn('   To fix this, add your API_KEY to the Environment Variables in your Vercel project settings.');
+    }
 
   } catch (e) {
     console.error('Build failed:', e);
