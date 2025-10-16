@@ -121,10 +121,9 @@ function App() {
   const handleLoadProgress = () => {
     try {
       const savedDataJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (savedDataJSON) {
-        // FIX: The unsafe type assertion `as` has been replaced with proper type checking.
-        // This prevents potential runtime errors from malformed localStorage data
-        // and resolves TypeScript errors when `JSON.parse` is configured to return `unknown`.
+      // FIX: Use `typeof` to ensure the value from localStorage is a string before parsing.
+      // This resolves a TypeScript error where JSON.parse could receive an `unknown` type.
+      if (typeof savedDataJSON === 'string') {
         const savedData: unknown = JSON.parse(savedDataJSON);
         
         if (savedData && typeof savedData === 'object' && !Array.isArray(savedData)) {
