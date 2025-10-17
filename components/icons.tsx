@@ -100,3 +100,9 @@ export const TextSizeIcon = () => (
         <path d="M17.5,6H15V4h-2.5C12.22,4,12,4.22,12,4.5v0C12,4.78,12.22,5,12.5,5H14v1h-2c-0.28,0-0.5,0.22-0.5,0.5v0C11.5,6.78,11.72,7,12,7h2v1h-1.5C12.22,8,12,8.22,12,8.5v0C12,8.78,12.22,9,12.5,9H15v2h2.5c0.28,0,0.5-0.22,0.5-0.5v0c0-0.28-0.22-0.5-0.5-0.5H16V8h1.5c0.28,0,0.5-0.22,0.5-0.5v0C18,7.22,17.78,7,17.5,7H16V6H17.5z M6,16h5V8H2v8h1V9h3v7H6z M8.5,4H4.88L6,6.24L7.12,4H8.5 M7.5,2H2.5L6,7L9.5,2H7.5z"/>
     </svg>
 );
+
+export const TemplateIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+    </svg>
+);

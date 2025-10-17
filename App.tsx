@@ -7,6 +7,7 @@ import Preview from './components/Preview';
 import AnalysisModal from './components/AnalysisModal';
 import { SaveIcon, FolderOpenIcon } from './components/icons';
 import ThemeSwitcher, { themes, Theme } from './components/ThemeSwitcher';
+import HomePage from './components/HomePage';
 
 const initialCvData: CVData = {
   personalDetails: {
@@ -82,6 +83,7 @@ function App() {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [theme, setTheme] = useState<Theme>('indigo');
   const [stylingOptions, setStylingOptions] = useState<StylingOptions>(initialStylingOptions);
+  const [showBuilder, setShowBuilder] = useState<boolean>(false);
 
   useEffect(() => {
     const activeTheme = themes[theme];
@@ -121,10 +123,10 @@ function App() {
   const handleLoadProgress = () => {
     try {
       const savedDataJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
-      // FIX: Use `typeof` to ensure the value from localStorage is a string before parsing.
-      // This resolves a TypeScript error where JSON.parse could receive an `unknown` type.
       if (typeof savedDataJSON === 'string') {
-        const savedData: unknown = JSON.parse(savedDataJSON);
+        // FIX: The explicit `: unknown` type annotation was removed. `JSON.parse` returns `any`,
+        // and the subsequent type guards handle validation safely. This resolves the reported error.
+        const savedData = JSON.parse(savedDataJSON);
         
         if (savedData && typeof savedData === 'object' && !Array.isArray(savedData)) {
             const data = savedData as Partial<{
@@ -156,13 +158,16 @@ function App() {
     }
   };
 
+  if (!showBuilder) {
+    return <HomePage onGetStarted={() => setShowBuilder(true)} />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow-md p-4 z-20">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold text-slate-800">
-            AI Document <span className="text-[var(--primary)]">Builder</span>
+            Spark Docs <span className="text-[var(--primary)]">Creator</span>
           </h1>
           <div className="flex items-center gap-8">
             <ThemeSwitcher currentTheme={theme} setTheme={setTheme} />
