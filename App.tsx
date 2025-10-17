@@ -123,9 +123,10 @@ function App() {
   const handleLoadProgress = () => {
     try {
       const savedDataJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (typeof savedDataJSON === 'string') {
-        // FIX: The explicit `: unknown` type annotation was removed. `JSON.parse` returns `any`,
-        // and the subsequent type guards handle validation safely. This resolves the reported error.
+      // FIX: The `JSON.parse` method requires a string argument. A truthiness check on
+      // `savedDataJSON` correctly narrows its type from `string | null` to `string`
+      // for the parser, resolving the error where the argument was inferred as 'unknown'.
+      if (savedDataJSON) {
         const savedData = JSON.parse(savedDataJSON);
         
         if (savedData && typeof savedData === 'object' && !Array.isArray(savedData)) {

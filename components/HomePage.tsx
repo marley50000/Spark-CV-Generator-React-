@@ -38,7 +38,7 @@ const HomePage: FC<HomePageProps> = ({ onGetStarted }) => {
                             Craft Your Professional Story, <span className="text-[var(--primary)]">Instantly.</span>
                         </h2>
                         <p className="max-w-3xl mx-auto text-lg text-slate-600 mb-8">
-                            Leverage AI to build standout CVs and cover letters that open doors. Effortless, intelligent, and tailored to you.
+                            Leverage AI to build standout professional documents that open doors. Effortless, intelligent, and tailored to you.
                         </p>
                         <button 
                             onClick={onGetStarted}
@@ -54,11 +54,11 @@ const HomePage: FC<HomePageProps> = ({ onGetStarted }) => {
                     <div className="container mx-auto px-4">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold">Why Choose Spark Docs?</h2>
-                            <p className="text-slate-600 mt-2">Everything you need to land your dream job.</p>
+                            <p className="text-slate-600 mt-2">Everything you need to achieve your professional goals.</p>
                         </div>
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                             <FeatureCard icon={<SparklesIcon />} title="AI-Powered Content">
-                                Generate compelling summaries and cover letters tailored to any job description.
+                                Generate compelling content, summaries, and entire documents tailored to your needs.
                             </FeatureCard>
                              <FeatureCard icon={<TemplateIcon />} title="Professional Templates">
                                 Choose from modern, classic, and elegant designs to match your style.
