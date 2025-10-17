@@ -123,10 +123,10 @@ function App() {
   const handleLoadProgress = () => {
     try {
       const savedDataJSON = localStorage.getItem(LOCAL_STORAGE_KEY);
-      // FIX: The `JSON.parse` method requires a string argument. A truthiness check on
-      // `savedDataJSON` correctly narrows its type from `string | null` to `string`
-      // for the parser, resolving the error where the argument was inferred as 'unknown'.
-      if (savedDataJSON) {
+      // FIX: The type of `savedDataJSON` can be inferred as 'unknown', which is not
+      // assignable to `JSON.parse`. Using a `typeof` check properly narrows the type
+      // to `string` and resolves the error.
+      if (typeof savedDataJSON === 'string') {
         const savedData = JSON.parse(savedDataJSON);
         
         if (savedData && typeof savedData === 'object' && !Array.isArray(savedData)) {

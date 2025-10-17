@@ -17,6 +17,13 @@ const FeatureCard: FC<{ icon: React.ReactNode; title: string; children: React.Re
     </div>
 );
 
+const DocumentPreviewCard: FC<{ title: string; children: React.ReactNode; rotation: string; }> = ({ title, children, rotation }) => (
+    <div className={`bg-white rounded-lg shadow-lg border border-slate-200 p-4 transform transition-transform duration-300 hover:scale-105 hover:-translate-y-2 ${rotation}`}>
+        <div className="opacity-75 pointer-events-none">{children}</div>
+        <p className="text-center font-semibold text-slate-700 mt-4 text-sm">{title}</p>
+    </div>
+);
+
 
 const HomePage: FC<HomePageProps> = ({ onGetStarted }) => {
     return (
@@ -46,6 +53,84 @@ const HomePage: FC<HomePageProps> = ({ onGetStarted }) => {
                         >
                             Create My Document
                         </button>
+                    </div>
+                </section>
+
+                {/* Document Showcase Section */}
+                <section className="py-20 bg-slate-50">
+                    <div className="container mx-auto px-4">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold">From Resumes to Receipts</h2>
+                            <p className="text-slate-600 mt-2">Visually stunning documents for every need.</p>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10" style={{ perspective: '1200px' }}>
+                            <DocumentPreviewCard title="Professional CV" rotation="lg:rotate-[-3deg]">
+                                <div className="h-36">
+                                    <div className="flex h-full gap-2">
+                                        <div className="w-1/3">
+                                            <div className="w-8 h-8 bg-slate-200 rounded-full mx-auto"></div>
+                                            <div className="h-1.5 w-full bg-slate-200 rounded mt-2"></div>
+                                            <div className="h-1.5 w-3/4 bg-slate-200 rounded mt-1 mx-auto"></div>
+                                            <div className="mt-3 space-y-1">
+                                                <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                                <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                                <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                            </div>
+                                        </div>
+                                        <div className="w-2/3">
+                                            <div className="h-2.5 w-3/4 bg-slate-300 rounded"></div>
+                                            <div className="h-1.5 w-1/2 bg-slate-200 rounded mt-1"></div>
+                                            <div className="mt-3 space-y-1">
+                                                <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                                <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                                <div className="h-1 w-5/6 bg-slate-200 rounded"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </DocumentPreviewCard>
+                            <DocumentPreviewCard title="Cover Letter" rotation="lg:rotate-[2deg]">
+                                <div className="h-36">
+                                    <div className="h-2.5 w-1/2 bg-slate-300 rounded mb-3"></div>
+                                    <div className="space-y-1">
+                                        <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                        <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                        <div className="h-1 w-3/4 bg-slate-200 rounded"></div>
+                                        <div className="h-1 w-full bg-slate-200 rounded mt-2"></div>
+                                        <div className="h-1 w-5/6 bg-slate-200 rounded"></div>
+                                    </div>
+                                </div>
+                            </DocumentPreviewCard>
+                            <DocumentPreviewCard title="Invoice" rotation="lg:rotate-[-2deg]">
+                                <div className="h-36">
+                                    <div className="flex justify-between items-center mb-3">
+                                        <div className="h-3.5 w-1/4 bg-slate-300 rounded"></div>
+                                        <div className="h-1.5 w-1/3 bg-slate-200 rounded"></div>
+                                    </div>
+                                    <div className="border-t border-slate-200 pt-2 space-y-2">
+                                        <div className="flex justify-between"><div className="h-1 w-1/2 bg-slate-200 rounded"></div><div className="h-1 w-1/4 bg-slate-200 rounded"></div></div>
+                                        <div className="flex justify-between"><div className="h-1 w-2/3 bg-slate-200 rounded"></div><div className="h-1 w-1/4 bg-slate-200 rounded"></div></div>
+                                        <div className="flex justify-between"><div className="h-1 w-1/3 bg-slate-200 rounded"></div><div className="h-1 w-1/4 bg-slate-200 rounded"></div></div>
+                                    </div>
+                                    <div className="border-t border-slate-200 mt-2 pt-2 flex justify-end">
+                                        <div className="h-2.5 w-1/3 bg-slate-300 rounded"></div>
+                                    </div>
+                                </div>
+                            </DocumentPreviewCard>
+                            <DocumentPreviewCard title="Tenancy Agreement" rotation="lg:rotate-[3deg]">
+                                <div className="h-36">
+                                    <div className="h-3.5 w-3/4 bg-slate-300 rounded mx-auto mb-3"></div>
+                                    <div className="space-y-1">
+                                        <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                        <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                        <div className="h-1 w-5/6 bg-slate-200 rounded"></div>
+                                        <div className="h-1 w-full bg-slate-200 rounded mt-2"></div>
+                                        <div className="h-1 w-full bg-slate-200 rounded"></div>
+                                        <div className="h-1 w-3/4 bg-slate-200 rounded"></div>
+                                    </div>
+                                </div>
+                            </DocumentPreviewCard>
+                        </div>
                     </div>
                 </section>
 
